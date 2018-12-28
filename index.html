@@ -21,7 +21,7 @@
         <pre id="content" style="white-space: pre-wrap;"></pre>
 
         <script type="text/javascript">
-        // Client ID and API key from the Developer Console
+        //! Client ID and API key from the Developer Console --- THIS IS WHERE THE MAGIC HAPPENS
         var CLIENT_ID = mycid;
         var API_KEY = myapikey;
 
@@ -67,6 +67,7 @@
             });
         }
 
+        //! DO WE ACTUALLY NEED TO BE SIGNED IN IF WE HAVE AN API KEY? WHAT CAN I DO TO MAKE SURE SIGN-IN ISN'T REQUIRED?
         /**
          *  Called when the signed in status changes, to update the UI
          *  appropriately. After a sign-in, the API is called.
@@ -136,6 +137,10 @@
             });
         }
 
+        /**
+         * This is where the function to add a line will go.
+         * It shows such promise, doesn't it?
+         */
         function handleAddRow() {
             console.log('I see what you did there');
         }
