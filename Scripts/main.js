@@ -1,3 +1,3 @@
 //Private Key located in hidden JS file
-var mykey = config.MY_KEY
-
+var mycid = config.MY_CID
+var myapikey = config.API_KEY
