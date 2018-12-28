@@ -3,5 +3,3 @@ var config = {
     SECRET_KEY : 'aaaaaaa',
 
 }
-
-///aaaaaaaaaaa
