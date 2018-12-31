@@ -17,6 +17,7 @@
         <button id="authorize_button" style="display: none;">Sign In</button>
         <button id="signout_button" style="display: none;">Sign Out</button>
         <button id="add_a_row" style="display: none;">Throw one on there</button>
+        <input name="name" id="example_input" style="display: none;" type="text"></input>
 
         <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -35,6 +36,7 @@
         var authorizeButton = document.getElementById('authorize_button');
         var signoutButton = document.getElementById('signout_button');
         var addrowButton = document.getElementById('add_a_row');
+        var example_input = document.getElementById('example_input');
 
         /**
          *  On load, called to load the auth2 library and API client library.
@@ -77,11 +79,13 @@
             authorizeButton.style.display = 'none';
             signoutButton.style.display = 'block';
             addrowButton.style.display = 'block';
+            example_input.style.display = 'block';
             listMajors();
             } else {
             authorizeButton.style.display = 'block';
             signoutButton.style.display = 'none';
             addrowButton.style.display = 'none';
+            example_input.style.display = 'none';
 
             }
         }
@@ -145,11 +149,15 @@
          */
         function handleAddRow() {
             console.log('I see what you did there');
+            var examplevar = document.getElementById("example_input").value
             var values = [
                 [
-                    '=now()'
+                    '=now()',
+                    examplevar
                 ],
-                
+                /*[
+                    examplevar
+                ]*/
             ];
             var body = {
                 values: values
