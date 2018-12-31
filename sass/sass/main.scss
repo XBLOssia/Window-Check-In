@@ -1,0 +1,41 @@
+body {
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 1.5;
+    color: orangered;
+    background-color: black;
+    height: 100%;
+    display: grid;
+}
+
+span {
+    margin: auto;
+}
+
+div {
+    margin: 5px auto;
+    align-self: center;
+    background-color: #404040;
+    border: 2px black;
+    width: 75%;
+    max-width: 600px;
+    min-width: 200px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+input {
+    margin: auto;
+    align-self: center;
+    border: 3px black;
+}
+
+button {
+    margin: auto;
+    align-self: center;
+    border: 3px black;
+    padding: 10px;
+}
