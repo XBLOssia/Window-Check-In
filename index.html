@@ -23,7 +23,7 @@
         <pre id="content" style="white-space: pre-wrap;"></pre>
 
         <script type="text/javascript">
-        //! Client ID and API key from the Developer Console --- THIS IS WHERE THE MAGIC HAPPENS
+        // Client ID and API key from the Developer Console --- THIS IS WHERE THE MAGIC HAPPENS
         var CLIENT_ID = mycid;
         var API_KEY = myapikey;
 
@@ -39,7 +39,6 @@
         var addrowButton = document.getElementById('add_a_row');
         var example_input = document.getElementById('example_input');
         var student_input = document.getElementById('student_input');
-
 
         /**
          *  On load, called to load the auth2 library and API client library.
@@ -84,7 +83,7 @@
             addrowButton.style.display = 'block';
             example_input.style.display = 'block';
             student_input.style.display = 'block';
-            listMajors();
+            //listMajors();
             } else {
             authorizeButton.style.display = 'block';
             signoutButton.style.display = 'block';
@@ -108,44 +107,6 @@
             gapi.auth2.getAuthInstance().signOut();
         }
 
-        // NOT NEEDED:
-        /**
-         * Append a pre element to the body containing the given message
-         * as its text node. Used to display the results of the API call.
-         *
-         * @param {string} message Text to be placed in pre element.
-         */
-        function appendPre(message) {
-            var pre = document.getElementById('content');
-            var textContent = document.createTextNode(message + '\n');
-            pre.appendChild(textContent);
-        }
-
-        // NOT NEEDED:
-        /**
-         * Print the names and majors of students in a sample spreadsheet:
-         * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-         */
-        function listMajors() {
-            gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId: '1fVqXuo5h5w8NZxigR-Sm2ldTAXgFAuoCRPhbM2KzQkg',
-            range: 'Class Data!A2:E',
-            }).then(function(response) {
-            var range = response.result;
-            if (range.values.length > 0) {
-                appendPre('Name, Major:');
-                for (i = 0; i < range.values.length; i++) {
-                var row = range.values[i];
-                // Print columns A and E, which correspond to indices 0 and 4.
-                appendPre(row[0] + ', ' + row[2] + ' ' + row[4]);
-                }
-            } else {
-                appendPre('No data found.');
-            }
-            }, function(response) {
-            appendPre('Error: ' + response.result.error.message);
-            });
-        }
 
         /**
          * This function posts two cells - a timestamp and input from a text box.
@@ -181,7 +142,7 @@
             };
 
             gapi.client.sheets.spreadsheets.values.append({
-                spreadsheetId: '1fVqXuo5h5w8NZxigR-Sm2ldTAXgFAuoCRPhbM2KzQkg',
+                spreadsheetId: config.SHEET_ID,
                 range: 'Class Data!A:E',
                 valueInputOption: 'USER_ENTERED',
                 resource: body,
@@ -191,11 +152,11 @@
             });
         }
 
-        </script>
+                </script>
 
-        <script async defer src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){};handleClientLoad()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+                <script async defer src="https://apis.google.com/js/api.js"
+                onload="this.onload=function(){};handleClientLoad()"
+                onreadystatechange="if (this.readyState === 'complete') this.onload()">
         </script>
 
     <!-- End Google Example -->
