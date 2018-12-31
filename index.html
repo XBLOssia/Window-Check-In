@@ -14,7 +14,7 @@
     <p>Google Sheets API Quickstart</p>
 
         <!--Add buttons to initiate auth sequence and sign out-->
-        <button id="authorize_button" style="display: none;">Authorize</button>
+        <button id="authorize_button" style="display: none;">Sign In</button>
         <button id="signout_button" style="display: none;">Sign Out</button>
         <button id="add_a_row" style="display: none;">Throw one on there</button>
 
@@ -30,7 +30,7 @@
 
         // Authorization scopes required by the API; multiple scopes can be
         // included, separated by spaces.
-        var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+        var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
 
         var authorizeButton = document.getElementById('authorize_button');
         var signoutButton = document.getElementById('signout_button');
@@ -100,6 +100,7 @@
             gapi.auth2.getAuthInstance().signOut();
         }
 
+        // NOT NEEDED:
         /**
          * Append a pre element to the body containing the given message
          * as its text node. Used to display the results of the API call.
@@ -112,6 +113,7 @@
             pre.appendChild(textContent);
         }
 
+        // NOT NEEDED:
         /**
          * Print the names and majors of students in a sample spreadsheet:
          * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
@@ -143,6 +145,24 @@
          */
         function handleAddRow() {
             console.log('I see what you did there');
+            var values = [
+                [
+                    '=now()'
+                ],
+                
+            ];
+            var body = {
+                values: values
+            };
+            gapi.client.sheets.spreadsheets.values.append({
+                spreadsheetId: '1fVqXuo5h5w8NZxigR-Sm2ldTAXgFAuoCRPhbM2KzQkg',
+                range: 'Class Data!A:E',
+                valueInputOption: 'USER_ENTERED',
+                resource: body,
+            }).then((response) => {
+                var result = response.result;
+                console.log(`${result.updates.updatedCells} cells appended.`)
+            });
         }
 
         </script>
