@@ -5,6 +5,7 @@
         <meta http-equiv='Content-Type' content='text/html' charset='utf-8' />
         <title >Window Check-In</title>
         <link rel="stylesheet" type="text/css" href="./stylesheets/sass/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
         <script type = 'text/javascript' src = './Scripts/config.js'></script>
         <script type = 'text/javascript' src = './Scripts/main.js'></script>
 
@@ -21,6 +22,7 @@
         <div id="example_input" style="display: none;">
                 Staff ID:    <input name="Staff ID" id="staff_id_input" type="text"></input>
             <br>Student ID: <input name="Student ID" id="student_id_input" type="text"></input>
+            <p></p>
             <button id="add_a_row" style="display: none;">Submit</button>
         </div>
         <div id="signout_div" style="display: block;"><button id="signout_button" style="display: block;">Sign Out</button></div>
@@ -135,48 +137,71 @@
             var examplevar = document.getElementById("staff_id_input").value;
             var student_id = document.getElementById("student_id_input").value;
 
-             console.log(examplevar);
-            if (examplevar != '' || student_id !='') {
-
-                var currentdate = new Date(); 
-                if (currentdate.getSeconds() < 10) {
-                    var seconds_fix = '0' + currentdate.getSeconds();
-                }   else {
-                    var seconds_fix = currentdate.getSeconds();
-                }
+             //console.log(examplevar);
+            if (examplevar != '' && student_id != ''){
+                console.log("You donkey!")
+                document.getElementById('status').innerHTML = "<div style='background-color: red; color: black;'>Error: Use either the Staff OR student field, not both!</div>";
+                document.getElementById('staff_id_input').value = "";
+                document.getElementById('student_id_input').value = "";
                 
-                var datetime = (currentdate.getMonth()+1) + "/"
-                    + currentdate.getDate()  + "/" 
-                    + currentdate.getFullYear() + " @ "  
-                    + currentdate.getHours() + ":"  
-                    + currentdate.getMinutes() + ":" 
-                    + seconds_fix;
+            }
+            else if (examplevar != '' || student_id !='') {
+                function numberCheck(str) {
+                    return str.match(/^[0-9]+$/);
+                                    };
+                //console.log(numberCheck(examplevar));
+                if (numberCheck(examplevar) != null || numberCheck(student_id) != null ){
+                    console.log('found a number');
+                
 
-                var values = [
-                    [
-                        datetime,
-                        examplevar,
-                        student_id,
-                    ],
-
-                ];
-                var body = {
-                    values: values
-                };
-
-                gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: config.SHEET_ID,
-                    range: 'Class Data!A:E',
-                    valueInputOption: 'USER_ENTERED',
-                    resource: body,
-                }).then((response) => {
-                    var result = response.result;
-                    console.log(`${result.updates.updatedCells} cells appended.`)
+                    var currentdate = new Date(); 
+                    if (currentdate.getSeconds() < 10) {
+                        var seconds_fix = '0' + currentdate.getSeconds();
+                    }   else {
+                        var seconds_fix = currentdate.getSeconds();
+                    }
                     
+                    var datetime = (currentdate.getMonth()+1) + "/"
+                        + currentdate.getDate()  + "/" 
+                        + currentdate.getFullYear() + " @ "  
+                        + currentdate.getHours() + ":"  
+                        + currentdate.getMinutes() + ":" 
+                        + seconds_fix;
 
-                document.getElementById('status').innerHTML = "<div style='background-color: darkgreen; color: white;'>Thank you!</div>";
-                
-                });
+                    var values = [
+                        [
+                            datetime,
+                            examplevar,
+                            student_id,
+                        ],
+
+                    ];
+                    var body = {
+                        values: values
+                    };
+
+                    gapi.client.sheets.spreadsheets.values.append({
+                        spreadsheetId: config.SHEET_ID,
+                        range: 'Class Data!A:E',
+                        valueInputOption: 'USER_ENTERED',
+                        resource: body,
+                    }).then((response) => {
+                        var result = response.result;
+                        console.log(`${result.updates.updatedCells} cells appended.`)
+                        
+
+                    document.getElementById('status').innerHTML = "<div style='background-color: darkgreen; color: white;'>Thank you!</div>";
+                    
+                    document.getElementById('staff_id_input').value = "";
+                    document.getElementById('student_id_input').value = "";
+
+                    });
+                } else {
+                    console.log('You donkey!')
+                    document.getElementById('status').innerHTML = "<div style='background-color: red; color: black;'>Error: Please use your ID NUMBER only!</div>";
+                    document.getElementById('staff_id_input').value = "";
+                    document.getElementById('student_id_input').value = "";
+                }
             } else {
                 console.log("it's EMPTY!")
                 document.getElementById('status').innerHTML = "<div style='background-color: red; color: black;'>Error: Please scan your badge if you are staff, or enter your Student ID.</div>";
